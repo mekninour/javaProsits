@@ -6,9 +6,10 @@ public class ZooManagement {
     public void display(){
         System.out.println(zooName+" comporte "+nbrCages+" cages");
     }
+
     public static void main(String[] args) {
         ZooManagement zoo=new ZooManagement();
-        zoo.display();
+        //zoo.display();
         String nom="";
         int nombre=-1;
         do {
@@ -24,5 +25,29 @@ public class ZooManagement {
         zoo.zooName = nom;
         zoo.nbrCages = nombre;
         zoo.display();
+
+        //prosit2
+        /*
+        Animal a=new Animal();
+        a.family="lion";
+        a.age=10;
+        a.name="li";
+        a.isMammal=true;
+
+        Zoo z=new Zoo();
+        z.name=zoo.zooName;
+        z.city="tunis";
+        z.nbrCages= zoo.nbrCages;
+        z.animals[0]=a;
+        */
+
+        Animal lion=new Animal("mamifere","li",10,true);
+        Zoo myZoo=new Zoo(zoo.zooName,"tunis",zoo.nbrCages);
+        myZoo.animals[0]=lion;
+        myZoo.displayZoo();
+
+        System.out.println(myZoo);  //affiche @ mais apres l'override affiche l'objet correctement
+      //  System.out.println(myZoo.toString());   //affiche @ et apres l'override on en a plus besoin
+
     }
 }
