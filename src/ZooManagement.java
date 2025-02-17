@@ -1,53 +1,102 @@
 import java.util.Scanner;
-
 public class ZooManagement {
-    int nbrCages=20;
-    String zooName="my zoo";
-    public void display(){
-        System.out.println(zooName+" comporte "+nbrCages+" cages");
-    }
-
     public static void main(String[] args) {
-        ZooManagement zoo=new ZooManagement();
-        //zoo.display();
-        String nom="";
-        int nombre=-1;
+        Scanner input = new Scanner(System.in);
+
+        //zoo
+        String zooName = "";
+        String city = "";
+        int nbrCages = -1;
+
+        //animal
+        String family;
+        String nomAnimal;
+        int age;
+        String m;
+        boolean isMammal = false;
         do {
-            Scanner input = new Scanner(System.in);
             System.out.println("Entrez le nom du zoo");
-            nom=input.nextLine();
-        }while(nom.isEmpty());
-        do {
-            Scanner input = new Scanner(System.in);
+            zooName = input.nextLine();
+            System.out.println("Entrez la city du zoo");
+            city = input.nextLine();
             System.out.println("Entrez le nbr de cages");
-            nombre=input.nextInt();
-        }while(nombre <=0);
-        zoo.zooName = nom;
-        zoo.nbrCages = nombre;
-        zoo.display();
-
-        //prosit2
-        /*
-        Animal a=new Animal();
-        a.family="lion";
-        a.age=10;
-        a.name="li";
-        a.isMammal=true;
-
-        Zoo z=new Zoo();
-        z.name=zoo.zooName;
-        z.city="tunis";
-        z.nbrCages= zoo.nbrCages;
-        z.animals[0]=a;
-        */
-
-        Animal lion=new Animal("mamifere","li",10,true);
-        Zoo myZoo=new Zoo(zoo.zooName,"tunis",zoo.nbrCages);
-        myZoo.animals[0]=lion;
-        myZoo.displayZoo();
+            nbrCages = input.nextInt();
+            input.nextLine();
+        } while (nbrCages <= 0 || zooName.isEmpty() || city.isEmpty());
+        Zoo myZoo = new Zoo(zooName, city);
 
         System.out.println(myZoo);  //affiche @ mais apres l'override affiche l'objet correctement
-      //  System.out.println(myZoo.toString());   //affiche @ et apres l'override on en a plus besoin
+        int menu=-1;
+        do{
+            System.out.println("1-Add animal\n2-Remove animal\n3-Print Zoo info\n4-See if zoo full\n0-Exit");
+            menu = input.nextInt();
+            input.nextLine();
+            switch(menu){
+                case 1:
+                    do {
+                        System.out.println("Famille");
+                        family = input.nextLine();
+                        System.out.println("nomAnimal");
+                        nomAnimal = input.nextLine();
+                        System.out.println("age");
+                        age = input.nextInt();
+                        input.nextLine();
+                        System.out.println("Mammal ?, O/N");
+                        m = input.nextLine();
+                        if (m.equalsIgnoreCase("O")) {
+                            isMammal = true;
+                        } else if (m.equalsIgnoreCase("N")) {
+                            isMammal = false;
+                        }
+                    } while (family.isEmpty() || nomAnimal.isEmpty() || age <= 0);
+
+                    Animal a = new Animal(family, nomAnimal, age, isMammal);
+                    if(myZoo.addAnimal(a)){
+                        System.out.println("Animal added");
+                    }
+                    else{
+                        System.out.println("Animal not added");
+                    }
+                    break;
+                case 2:
+                    do {
+                        System.out.println("Famille");
+                        family = input.nextLine();
+                        System.out.println("nomAnimal");
+                        nomAnimal = input.nextLine();
+                        System.out.println("age");
+                        age = input.nextInt();
+                        input.nextLine();
+                        System.out.println("Mammal ?, O/N");
+                        m = input.nextLine();
+                        if (m.equalsIgnoreCase("O")) {
+                            isMammal = true;
+                        } else if (m.equalsIgnoreCase("N")) {
+                            isMammal = false;
+                        }
+                    } while (family.isEmpty() || nomAnimal.isEmpty() || age <= 0);
+
+                    Animal r = new Animal(family, nomAnimal, age, isMammal);
+                    if(myZoo.removeAnimal(r)){
+                        System.out.println("Animal Removed");
+                    }
+                    else{
+                        System.out.println("Animal not Removed");
+                    }
+                    break;
+                case 3:
+                    myZoo.displayZoo();
+                break;
+                case 4:
+                    if(myZoo.isZooFull()){
+                        System.out.println("Zoo full");
+                    }
+                    else{
+                        System.out.println("Zoo not full");
+                    }
+                    break;
+            }
+        }while(menu!=0);
 
     }
 }
