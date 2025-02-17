@@ -1,9 +1,10 @@
+package tn.esprit.gestionzoo.entities;
 public class Zoo {
-    Animal [] animals;
-    String name;
-    String city;
-    final int nbrCages=25;
-    static int counter = 0;
+    private Animal [] animals;
+    private String name;
+    private String city;
+    private final int nbrCages=25;
+    private static int counter = 0;
 
     public Zoo(String name,String city) { //ça ecrase le constructeur par defaut
         animals=new Animal[nbrCages];
@@ -26,7 +27,7 @@ public class Zoo {
         return (name+" "+city+" "+nbrCages+" "+str);
     }
     public boolean addAnimal(Animal animal){
-        if(searchAnimal(animal)==-1&&counter<nbrCages) {
+        if(searchAnimal(animal)==-1&&!isZooFull()) {
             animals[counter]=animal;
             counter++;
             return true;
@@ -39,7 +40,7 @@ public class Zoo {
         int i=0;
         boolean found=false;
         while(!found&&i<counter){
-            if(this.animals[i].name.equalsIgnoreCase(animal.name)){
+            if(this.animals[i].getName().equalsIgnoreCase(animal.getName())){
                 found=true;
             }
             else {
