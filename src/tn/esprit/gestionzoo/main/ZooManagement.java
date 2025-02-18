@@ -1,6 +1,6 @@
 package tn.esprit.gestionzoo.main;
-import tn.esprit.gestionzoo.entities.Animal;
-import tn.esprit.gestionzoo.entities.Zoo;
+import tn.esprit.gestionzoo.entities.*;
+
 import java.util.Scanner;
 public class ZooManagement {
     public static void main(String[] args) {
@@ -17,6 +17,8 @@ public class ZooManagement {
         int age;
         String m;
         boolean isMammal = false;
+        String habitat;
+        float swimmingDepth;
         do {
             System.out.println("Entrez le nom du zoo");
             zooName = input.nextLine();
@@ -31,7 +33,7 @@ public class ZooManagement {
         System.out.println(myZoo);  //affiche @ mais apres l'override affiche l'objet correctement
         int menu=-1;
         do{
-            System.out.println("1-Add animal\n2-Remove animal\n3-Print Zoo info\n4-See if zoo full\n0-Exit");
+            System.out.println("1-Add animal\n2-Remove animal\n3-Print Zoo info\n4-See if zoo full\n5-Create and display Penguing for exemple\n6-compare swimming function\n0-Exit");
             menu = input.nextInt();
             input.nextLine();
             switch(menu){
@@ -97,6 +99,41 @@ public class ZooManagement {
                     else{
                         System.out.println("Zoo not full");
                     }
+                    break;
+                case 5:
+                    do {
+                        System.out.println("Famille");
+                        family = input.nextLine();
+                        System.out.println("nomAnimal");
+                        nomAnimal = input.nextLine();
+                        System.out.println("age");
+                        age = input.nextInt();
+                        input.nextLine();
+                        System.out.println("Mammal ?, O/N");
+                        m = input.nextLine();
+                        if (m.equalsIgnoreCase("O")) {
+                            isMammal = true;
+                        } else if (m.equalsIgnoreCase("N")) {
+                            isMammal = false;
+                        }
+
+                        System.out.println("habitat");
+                        habitat = input.nextLine();
+
+                        System.out.println("swimmingDepth");
+                        swimmingDepth = input.nextFloat();
+
+                    } while (family.isEmpty() || nomAnimal.isEmpty() || age <= 0);
+                    Penguing p=new Penguing( family,  nomAnimal,  age, isMammal, habitat, swimmingDepth);
+                    System.out.println(p.toString());
+                    break;
+                case 6:
+                    Aquatic aquatic=new Aquatic();
+                    Penguing penguing=new Penguing();
+                    Dolphin dolphin=new Dolphin();
+                    aquatic.swim();
+                    penguing.swim();
+                    dolphin.swim();
                     break;
             }
         }while(menu!=0);
